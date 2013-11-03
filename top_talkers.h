@@ -35,7 +35,7 @@ private:
             return !(lhs.second < rhs.second);
         }
     };
-    typedef boost::heap::fibonacci_heap<pair, boost::heap::compare<heap_comparator>> weight_heap;
+    typedef boost::heap::fibonacci_heap<pair, boost::heap::compare<heap_comparator> > weight_heap;
     typedef typename weight_heap::handle_type weight_handle;
     typedef boost::unordered_map<color, weight_handle> color_map;
     
