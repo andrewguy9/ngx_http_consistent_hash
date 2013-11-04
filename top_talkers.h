@@ -20,13 +20,13 @@ public:
     typedef color_ color;
     typedef weight_ weight;
     typedef std::pair<color, weight> pair;
-    
+
     top_talkers(size_t size);
     ~top_talkers();
     void update(color, weight);
     weight get(color) const;
     std::vector<pair> get() const;
-    
+
 private:
     struct heap_comparator
     {
@@ -38,7 +38,7 @@ private:
     typedef boost::heap::fibonacci_heap<pair, boost::heap::compare<heap_comparator> > weight_heap;
     typedef typename weight_heap::handle_type weight_handle;
     typedef boost::unordered_map<color, weight_handle> color_map;
-    
+
     size_t size;
     weight_heap weights;
     color_map colors;
