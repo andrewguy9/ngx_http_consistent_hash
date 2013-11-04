@@ -10,6 +10,7 @@ extern "C" {
 
     int tt_init(int size, struct tt_handle * handle);
     int tt_update(int color, double delta, int time, int decay, struct tt_handle * tt);
+    int tt_get(struct tt_pair * p, int size);
 }
 
 #endif

@@ -20,8 +20,10 @@ int tt_init(int size, struct tt_handle * handle)
         specified_timesource * ts = new specified_timesource(0.0);
         handle->ts = ts;
         return 1;
-    } catch(std::bad_alloc&) {
-        return 0;
+    } catch (std::bad_alloc&) {
+        return -1;
+    } catch (...) {
+        return -2;
     }
 }
 
@@ -34,8 +36,8 @@ int tt_update(int color, double delta, int time, double decay, struct tt_handle 
         tt_type * tt = (tt_type *) handle->ptr;
         tt->update(color, dc);
         return 1;
-    } catch(...) {
-        return 0;
+    } catch (...) {
+        return -1;
     }
 }
 
