@@ -39,13 +39,9 @@ int tt_update(int color, double delta, int time, double decay, struct tt_handle 
     }
 }
 
-int tt_get_color()
+double tt_get_color(int color, struct tt_handle * handle)
 {
-    return 0;
-}
-
-int tt_get()
-{
-    return 0;
+    tt_type * tt = (tt_type *) handle->ptr;
+    return tt->get(color).get();
 }
 
