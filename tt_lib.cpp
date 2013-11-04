@@ -10,6 +10,8 @@
 #include "top_talkers.h"
 #include "counter.h"
 
+#include <algorithm>
+
 typedef top_talkers<int, counter> tt_type;
 
 int tt_init(int size, struct tt_handle * handle)
@@ -47,3 +49,22 @@ double tt_get_color(int color, struct tt_handle * handle)
     return tt->get(color).get();
 }
 
+int tt_get(struct tt_pair * pairs, size_t size, struct tt_handle * handle)
+{
+    try {
+        int i= 0;
+        tt_type * tt = (tt_type *) handle->ptr;
+        std::vector<tt_type::pair> top = tt->get();
+        for (i = 0;
+                i < std::min<size_t>(size, top.size());
+                i++)
+        {
+            tt_type::pair p = top[i];
+            pairs[i].color = p.first;
+            pairs[i].value = p.second.get();
+        }
+        return i;
+    } catch (...) {
+        return -1;
+    }
+}
