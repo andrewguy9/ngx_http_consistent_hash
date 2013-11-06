@@ -4,6 +4,7 @@
 #include <ngx_core.h>
 #include <ngx_http.h>
 
+#include "tt_lib.h"
 #define CONSISTENT_DEBUG 0
 
 #define MMC_CONSISTENT_POINTS 160 
@@ -15,6 +16,7 @@
 typedef struct {
     ngx_array_t                     *values;
     ngx_array_t                     *lengths;
+    tt_handle                        tt;
 } ngx_http_upstream_consistent_hash_srv_conf_t;
 
 typedef struct {
@@ -321,13 +323,16 @@ ngx_http_upstream_consistent_hash_create_srv_conf(ngx_conf_t *cf)
     }
 
     /*
-     * set by ngx_pcalloc(): 
+     * set by ngx_pcalloc():
      *
-     *     uchscf->lengths = NULL; 
+     *     uchscf->lengths = NULL;
      *     uchscf->values = NULL;
-     *     uchscf->tt = NULL;
+     *     uchscf->tt.ptr = NULL;
+     *     uchscf->tt.ts = NULL;
     */
 
+    //TODO Add config knob for tt size.
+    tt_init(200, &uchscf->tt);
     return uchscf;
 }
 
