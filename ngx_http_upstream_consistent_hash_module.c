@@ -312,22 +312,23 @@ ngx_http_upstream_free_consistent_hash_peer(ngx_peer_connection_t *pc, void *dat
 static void *
 ngx_http_upstream_consistent_hash_create_srv_conf(ngx_conf_t *cf)
 {
-    ngx_http_upstream_consistent_hash_srv_conf_t  *conf;
+    ngx_http_upstream_consistent_hash_srv_conf_t  *uchscf;
 
-    conf = ngx_pcalloc(cf->pool,
+    uchscf = ngx_pcalloc(cf->pool,
                        sizeof(ngx_http_upstream_consistent_hash_srv_conf_t));
-    if (conf == NULL) {
+    if (uchscf == NULL) {
         return NULL;
     }
 
     /*
      * set by ngx_pcalloc(): 
      *
-     *     conf->lengths = NULL; 
-     *     conf->values = NULL;
+     *     uchscf->lengths = NULL; 
+     *     uchscf->values = NULL;
+     *     uchscf->tt = NULL;
     */
 
-    return conf;
+    return uchscf;
 }
 
 
