@@ -201,6 +201,7 @@ ngx_http_upstream_consistent_hash_compare_continuum_nodes(
 }
 
 
+//XXX This is the handler for the http request.
 static ngx_int_t
 ngx_http_upstream_init_consistent_hash_peer(ngx_http_request_t *r,
         ngx_http_upstream_srv_conf_t *us)
@@ -223,12 +224,14 @@ ngx_http_upstream_init_consistent_hash_peer(ngx_http_request_t *r,
     r->upstream->peer.data = uchpd->peers;
     uchpd->peers = us->peer.data;
 
+    //XXX I think this is where the variable to be hashed shows up.
     if (ngx_http_script_run(r, &evaluated_key_to_hash, 
                 uchscf->lengths->elts, 0, uchscf->values->elts) == NULL)
     {
         return NGX_ERROR;
     }
 
+    //XXX This is where the hashing occurs.
     uchpd->point = 
         ngx_crc32_long(evaluated_key_to_hash.data, evaluated_key_to_hash.len);
 
@@ -240,6 +243,7 @@ ngx_http_upstream_init_consistent_hash_peer(ngx_http_request_t *r,
 }
 
 
+//XXX This is where peer assignment happens.
 static ngx_int_t
 ngx_http_upstream_get_consistent_hash_peer(ngx_peer_connection_t *pc, 
         void *data)
